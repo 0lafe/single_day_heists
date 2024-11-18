@@ -1,6 +1,14 @@
 -- uses original id where possible
 function JobManager:current_real_job_id()
-  return self._global.current_job.original_id or self:current_job_wrapper_id() or self:current_job_id()
+  return self:current_original_job_id() or self:current_job_wrapper_id() or self:current_job_id()
+end
+
+function JobManager:current_original_job_id()
+  if not self._global.current_job then
+    return
+  end
+
+  return self._global.current_job.original_id
 end
 
 -- adds extra field to global to track base heist id
